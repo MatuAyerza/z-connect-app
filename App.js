@@ -1,21 +1,39 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { Component } from 'react';
+import { ScrollView, StyleSheet, Text, View, SafeAreaView, TouchableOpacity, Image } from 'react-native';
+import { styles, buttons, menuStyles } from "./assets/styles/styles";
+import Card from './components/Card'
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+export default class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+    };
+  }
+
+  render() {
+    return (
+      <SafeAreaView style={styles.safeArea}>
+        <StatusBar style='light' backgroundColor='black' />
+        <Image source={require("@assets/img/logo.png")} style={menuStyles.image} resizeMethod='resize' resizeMode='center'/>
+        <View style={menuStyles.menuContainer}>
+          <TouchableOpacity style={menuStyles.menuButton}>
+            <Text>Import Cards</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={menuStyles.menuButton}>
+            <Text>View Cards</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={menuStyles.menuButton}>
+            <Text>Filter/Search</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={menuStyles.menuButton}>
+            <Text>Recylce Bin</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={menuStyles.menuButton}>
+            <Text>About</Text>
+          </TouchableOpacity>
+        </View>
+      </SafeAreaView>
+    );
+  }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
