@@ -1,8 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { Component } from 'react';
 import { ScrollView, StyleSheet, Text, View, SafeAreaView, TouchableOpacity, Image } from 'react-native';
-import { styles, buttons, menuStyles } from "./assets/styles/styles";
-import Card from './components/Card'
+import { styles, buttons, menuStyles } from "./src/styles/styles";
 
 export default class App extends Component {
   constructor() {

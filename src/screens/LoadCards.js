@@ -1,8 +1,8 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { Component } from 'react';
 import { AsyncStorage, ScrollView, StyleSheet, Text, View, SafeAreaView, TextInput, Button} from 'react-native';
-import { styles, buttons } from "../../assets/styles/styles"; 
-import {loadUserData} from "../../assets/api/userData"
+import { styles, buttons } from "../styles/styles"; 
+import {loadUserData} from "../api/userData"
 
 export default class LoadCards extends Component {
   constructor() {
@@ -17,7 +17,6 @@ export default class LoadCards extends Component {
     let results = await loadUserData(number)
     let jsonString = JSON.stringify(results);
     AsyncStorage.setItem("@userList", jsonString);
-    console.log(results);
   }
   render() {
     return (

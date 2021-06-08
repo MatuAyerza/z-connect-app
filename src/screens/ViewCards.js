@@ -1,8 +1,8 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { Component } from 'react';
 import { AsyncStorage, ScrollView, StyleSheet, Text, View, SafeAreaView, FlatList, Button} from 'react-native';
-import { styles, buttons } from "../../assets/styles/styles";
-import Card from '../../components/Card'
+import { styles, buttons } from "../styles/styles";
+import Card from '../components/Card'
 
 export default class ViewCards extends Component {
   constructor() {
@@ -65,6 +65,7 @@ export default class ViewCards extends Component {
           data={this.state.cards}
           renderItem={this.renderItem}
           keyExtractor={this.extractor}
+          contentContainerStyle={styles.cardContainer}
         ></FlatList>
         <Button title="Show Cards" onPress={this.getCards}> </Button>
       </SafeAreaView>
