@@ -1,4 +1,4 @@
-import { StyleSheet, StatusBar, Platform } from "react-native";
+import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
   whiteText: {
@@ -6,7 +6,6 @@ const styles = StyleSheet.create({
   },
   safeArea: {
     flex: 1,
-    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
     backgroundColor: "#191930",
   },
   cardContainer: {
@@ -20,6 +19,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 10,
   },
+  aboutItems: {
+    justifyContent: 'space-evenly',
+    alignItems: 'center'
+  }
 });
 
 const buttons = StyleSheet.create({

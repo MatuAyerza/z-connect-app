@@ -1,8 +1,6 @@
-import { StatusBar } from 'expo-status-bar';
 import React, { Component } from 'react';
-import { AsyncStorage, ScrollView, StyleSheet, Text, View, SafeAreaView, FlatList, Button} from 'react-native';
-import { styles, buttons } from "../styles/styles";
-import Card from '../components/Card'
+import { Text, View } from 'react-native';
+import { styles } from "../styles/styles";
 
 export default class About extends Component {
   constructor() {
@@ -10,14 +8,12 @@ export default class About extends Component {
     this.state = {};
   }
 
-  componentDidMount() {}
-
   render() {
     return (
-      <View>
-        <Text>Matias Ayerza</Text>
-        <Text>Jim Rattagan</Text>
-        <Text>Juan Martin Lucioni</Text>
+      <View style={[styles.safeArea, styles.aboutItems]}>
+        <Text style={styles.whiteText}>Matias Ayerza</Text>
+        <Text style={styles.whiteText}>Jim Rattagan</Text>
+        <Text style={styles.whiteText}>Juan Martin Lucioni</Text>
       </View>
     );
   }

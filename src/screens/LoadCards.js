@@ -1,8 +1,8 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { Component } from 'react';
-import { AsyncStorage, ScrollView, StyleSheet, Text, View, SafeAreaView, TextInput, Button} from 'react-native';
-import { styles, buttons } from "../styles/styles"; 
-import {loadUserData} from "../api/userData"
+import { AsyncStorage, SafeAreaView, TextInput, Button} from 'react-native';
+import { styles } from "../styles/styles"; 
+import { loadUserData } from "../api/userData"
 
 export default class LoadCards extends Component {
   constructor() {

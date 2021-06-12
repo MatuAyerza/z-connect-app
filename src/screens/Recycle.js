@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { Component } from 'react';
-import { AsyncStorage, ScrollView, StyleSheet, Text, View, SafeAreaView, FlatList, Button} from 'react-native';
-import { styles, buttons } from "../styles/styles";
+import { AsyncStorage, SafeAreaView, FlatList, Button} from 'react-native';
+import { styles } from "../styles/styles";
 import Card from '../components/Card'
 
 export default class Recycle extends Component {
