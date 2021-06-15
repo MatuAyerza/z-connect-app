@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { AsyncStorage, Text, SafeAreaView, TextInput, TouchableOpacity} from 'react-native';
-import { styles } from "../styles/styles";
+import { AsyncStorage, Text, SafeAreaView, TextInput, TouchableOpacity, View, Image} from 'react-native';
+import { buttons, styles, menuStyles } from "../styles/styles";
 
 export default class Filter extends Component {
   constructor(props) {
@@ -55,26 +55,25 @@ export default class Filter extends Component {
 
   render() {
     return (
-      <SafeAreaView style={styles.safeArea}>
-        <TextInput
-          // style={styles.inputField}
-          onChangeText={(text) => this.setState({ nameHandler: text })}
-          placeholder='First Name'
-        ></TextInput>
-        <TextInput
-          // style={styles.inputField}
-          onChangeText={(text) => this.setState({ lastNameHandler: text })}
-          placeholder='Last Name'
-        ></TextInput>
-        <TextInput
-          // style={styles.inputField}
-          keyboardType='number-pad'
-          onChangeText={(text) => this.setState({ ageHandler: text })}
-          placeholder='Age'
-        ></TextInput>
-        <TouchableOpacity onPress={this.filterCards}>
-          <Text>Filter</Text>
-        </TouchableOpacity>
+      <SafeAreaView style={[styles.safeArea, styles.centerItems]}>
+        <Image source={require("@assets/img/logo.png")} style={[menuStyles.image, styles.forceTop]} resizeMethod='resize' resizeMode='center'/>
+        <View style={styles.filterWrapper}>
+          <View style={styles.inputWrapper}>
+            <Text>Enter First Name</Text>
+            <TextInput style={styles.inputField} onChangeText={(text) => this.setState({ nameHandler: text })} placeholder='First Name'></TextInput>
+          </View>
+          <View style={styles.inputWrapper}>
+            <Text>Enter Last Name</Text>
+            <TextInput style={styles.inputField} onChangeText={(text) => this.setState({ lastNameHandler: text })} placeholder='Last Name'></TextInput>
+          </View>
+          <View style={styles.inputWrapper}>
+            <Text>Enter Age</Text>
+            <TextInput style={styles.inputField} keyboardType='number-pad' onChangeText={(text) => this.setState({ ageHandler: text })} placeholder='Age'></TextInput>
+          </View>
+          <TouchableOpacity onPress={this.filterCards} style={buttons.filterButton}>
+            <Text style={styles.whiteText}>Filter</Text>
+          </TouchableOpacity>
+        </View>
       </SafeAreaView>
     );
   }

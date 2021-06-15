@@ -18,7 +18,15 @@ export default class App extends Component {
   render() {
     return (
       <NavigationContainer>
-        <Stack.Navigator>
+        <Stack.Navigator screenOptions={{
+          headerStyle: {
+            backgroundColor: 'black',
+          },
+          headerTitleStyle: {
+            color: 'white'
+          },
+          headerTintColor: 'white'
+        }}>
           <Stack.Screen name='Menu' component={Menu} />
           <Stack.Screen name='Load Cards' component={LoadCards} />
           <Stack.Screen name='View Cards' component={ViewCards} initialParams={{list: '@userList'}}/>

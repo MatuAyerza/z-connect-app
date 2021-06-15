@@ -50,12 +50,7 @@ export default class ViewCards extends Component {
   };
 
   renderItem = ({ item }) => (
-    <Card
-      key={item.login.uuid}
-      userInfo={item}
-      id={item.login.uuid}
-      deleteCard={this.deleteCard}
-    />
+    <Card key={item.login.uuid} userInfo={item} id={item.login.uuid} deleteCard={this.deleteCard} />
   );
 
   render() {

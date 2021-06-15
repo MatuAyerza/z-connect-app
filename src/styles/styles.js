@@ -8,6 +8,10 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#191930",
   },
+  centerItems: {
+    justifyContent: "center",
+    alignItems: "center",
+  },
   cardContainer: {
     alignItems: "center",
   },
@@ -20,19 +24,70 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
   },
   aboutItems: {
-    justifyContent: 'space-evenly',
-    alignItems: 'center'
-  }
+    justifyContent: "space-evenly",
+    alignItems: "center",
+  },
+  filterWrapper: {
+    backgroundColor: "white",
+    justifyContent: "space-evenly",
+    alignItems: "center",
+    width: "80%",
+    height: "60%",
+    borderRadius: 10,
+    marginTop: 20,
+  },
+  inputWrapper: {
+    width: "75%",
+  },
+  inputField: {
+    borderStyle: "solid",
+    borderWidth: 1,
+    borderColor: "black",
+    width: "100%",
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    marginTop: 5,
+  },
+  forceTop: {
+    position: "absolute",
+    top: 2,
+  },
+  cardButtonWrapper: {
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+    width: '100%'
+  },
+  profileImage: {
+    height: 100,
+    width: 100,
+    borderRadius: 5
+  },
 });
 
 const buttons = StyleSheet.create({
   deleteButton: {
-    backgroundColor: "#276fdb",
+    backgroundColor: "red",
     width: 20,
     color: "white",
-    alignItems: 'center',
-    alignSelf: 'flex-end',
-    borderRadius: 2
+    alignItems: "center",
+    alignSelf: "flex-end",
+    borderRadius: 2,
+  },
+  filterButton: {
+    width: "75%",
+    backgroundColor: "#2196F3",
+    borderRadius: 2,
+    alignItems: "center",
+    paddingVertical: 5,
+    marginVertical: 5,
+  },
+  cardButton: {
+    width: "40%",
+    backgroundColor: "#2196F3",
+    borderRadius: 2,
+    alignItems: "center",
+    paddingVertical: 5,
+    marginVertical: 5,
   },
 });
 

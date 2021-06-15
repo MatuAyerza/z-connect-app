@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, {Component} from 'react';
-import { StyleSheet, Text, View, Button, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Button, TouchableOpacity, Image } from 'react-native';
 import { styles, buttons } from "../styles/styles";
 
 class Card extends Component{
@@ -29,18 +29,19 @@ class Card extends Component{
         <TouchableOpacity onPress={()=>{this.props.deleteCard(this.props.id)}} style={buttons.deleteButton}>
           <Text style={styles.whiteText}>X</Text>
         </TouchableOpacity>
+        <Image source={{uri: this.props.userInfo.picture.thumbnail}} style={styles.profileImage}/>
         <Text>{this.props.userInfo.name.first} {this.props.userInfo.name.last}</Text>
         <Text>Email: {this.props.userInfo.email}</Text>
         <Text>Birthday: {this.props.userInfo.dob.date.substring(0,10)} (Age: {this.props.userInfo.dob.age})</Text>
-        {/* <h3>{this.props.userInfo.name.first + " " +this.props.userInfo.name.last}</h3>
-        <img
-          className='user-image'
-          src= {this.props.userInfo.picture.medium}
-          alt={this.props.userInfo.name.first + " " +this.props.userInfo.name.last}
-        />
-        <p>Email: {this.props.userInfo.email}</p>
-        <p>Birthday: {this.props.userInfo.dob.date.substring(0,10)} (Age: {this.props.userInfo.dob.age})</p>
-        <div className='view-more-wrapper' id='view-more-wrapper' style={{height: this.state.currentDisplay}}>
+        <View style={styles.cardButtonWrapper}>
+          <TouchableOpacity style={buttons.cardButton}>
+            <Text style={styles.whiteText}>View More</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={buttons.cardButton}>
+            <Text style={styles.whiteText}>Edit Contact</Text>
+          </TouchableOpacity>
+        </View>
+        {/* <div className='view-more-wrapper' id='view-more-wrapper' style={{height: this.state.currentDisplay}}>
           <p>Phone: {this.props.userInfo.phone}</p>
           <p>Address: {this.props.userInfo.location.street.name} {this.props.userInfo.location.street.number}</p>
           <p>City: {this.props.userInfo.location.city}, {this.props.userInfo.location.state} ({this.props.userInfo.location.postcode})</p>

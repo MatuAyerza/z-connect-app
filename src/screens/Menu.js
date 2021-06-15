@@ -13,7 +13,6 @@ export default class App extends Component {
   render() {
     return (
       <SafeAreaView style={styles.safeArea}>
-        <StatusBar style='light' backgroundColor='black' />
         <Image source={require("@assets/img/logo.png")} style={menuStyles.image} resizeMethod='resize' resizeMode='center'/>
         <View style={menuStyles.menuContainer}>
           <TouchableOpacity style={menuStyles.menuButton} onPress={() => this.props.navigation.navigate('Load Cards')}>
