@@ -12,7 +12,7 @@ export default class App extends Component {
 
   render() {
     return (
-      <SafeAreaView style={styles.safeArea}>
+      <View style={styles.safeArea}>
         <Image source={require("@assets/img/logo.png")} style={menuStyles.image} resizeMethod='resize' resizeMode='center'/>
         <View style={menuStyles.menuContainer}>
           <TouchableOpacity style={menuStyles.menuButton} onPress={() => this.props.navigation.navigate('Load Cards')}>
@@ -31,7 +31,7 @@ export default class App extends Component {
             <Text>About</Text>
           </TouchableOpacity>
         </View>
-      </SafeAreaView>
+      </View>
     );
   }
 }

@@ -29,7 +29,7 @@ class Card extends Component{
         <TouchableOpacity onPress={()=>{this.props.deleteCard(this.props.id)}} style={buttons.deleteButton}>
           <Text style={styles.whiteText}>X</Text>
         </TouchableOpacity>
-        <Image source={{uri: this.props.userInfo.picture.thumbnail}} style={styles.profileImage}/>
+        <Image source={{uri: this.props.userInfo.picture.large}} style={styles.profileImage}/>
         <Text>{this.props.userInfo.name.first} {this.props.userInfo.name.last}</Text>
         <Text>Email: {this.props.userInfo.email}</Text>
         <Text>Birthday: {this.props.userInfo.dob.date.substring(0,10)} (Age: {this.props.userInfo.dob.age})</Text>

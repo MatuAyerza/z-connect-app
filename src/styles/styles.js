@@ -4,6 +4,9 @@ const styles = StyleSheet.create({
   whiteText: {
     color: "white",
   },
+  headerText: {
+    fontSize: 20
+  },
   safeArea: {
     flex: 1,
     backgroundColor: "#191930",
@@ -26,6 +29,15 @@ const styles = StyleSheet.create({
   aboutItems: {
     justifyContent: "space-evenly",
     alignItems: "center",
+  },
+  filterHeader: {
+    backgroundColor: "white",
+    justifyContent: "space-evenly",
+    alignItems: "center",
+    width: "80%",
+    height: "10%",
+    borderRadius: 10,
+    marginTop: 20,
   },
   filterWrapper: {
     backgroundColor: "white",
@@ -55,12 +67,29 @@ const styles = StyleSheet.create({
   cardButtonWrapper: {
     flexDirection: "row",
     justifyContent: "space-evenly",
-    width: '100%'
+    width: "100%",
   },
   profileImage: {
     height: 100,
     width: 100,
-    borderRadius: 5
+    borderRadius: 5,
+  },
+  modalContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  modal: {
+    width: 200,
+    height: 100,
+    backgroundColor: "white",
+    alignItems: "center",
+    borderStyle: "solid",
+    borderWidth: 1,
+    borderColor: "black",
+    borderRadius: 5,
+    paddingVertical: 5,
+    paddingHorizontal: 10,
   },
 });
 
@@ -72,6 +101,7 @@ const buttons = StyleSheet.create({
     alignItems: "center",
     alignSelf: "flex-end",
     borderRadius: 2,
+    marginBottom: 5
   },
   filterButton: {
     width: "75%",
@@ -83,6 +113,14 @@ const buttons = StyleSheet.create({
   },
   cardButton: {
     width: "40%",
+    backgroundColor: "#2196F3",
+    borderRadius: 2,
+    alignItems: "center",
+    paddingVertical: 5,
+    marginVertical: 5,
+  },
+  modalButton: {
+    width: "75%",
     backgroundColor: "#2196F3",
     borderRadius: 2,
     alignItems: "center",

@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { Component } from 'react';
-import { AsyncStorage, SafeAreaView, FlatList, Button} from 'react-native';
+import { AsyncStorage, SafeAreaView, FlatList, Button, ActivityIndicator} from 'react-native';
 import { styles } from "../styles/styles";
 import Card from '../components/Card'
 
@@ -32,13 +32,14 @@ export default class ViewCards extends Component {
   }
   getCards = async (list) => {
     try {
-      this.setState({ activity: !this.state.activity });
+      this.setState({ activity: true });
       let userList = await AsyncStorage.getItem(list);
+      this.setState({activity: !this.state.activity})
       let parsedUserList = userList != null ? JSON.parse(userList) : null;
       return this.setState({
         userList: parsedUserList,
         originalUserList: parsedUserList,
-        activity: !this.state.activity,
+        activity: false,
       });
     } catch (error) {
       console.error(error);
@@ -56,13 +57,19 @@ export default class ViewCards extends Component {
   render() {
     return (
       <SafeAreaView style={styles.safeArea}>
-        <StatusBar style='light' backgroundColor='black' />
+        {this.state.activity
+        ? <ActivityIndicator 
+            size={80}
+            color='#2196F3'
+          />
+        : 
         <FlatList
           data={this.state.userList}
           renderItem={this.renderItem}
           keyExtractor={this.extractor}
           contentContainerStyle={styles.cardContainer}
         ></FlatList>
+        }
       </SafeAreaView>
     );
   }

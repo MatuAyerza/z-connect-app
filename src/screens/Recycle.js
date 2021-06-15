@@ -60,7 +60,6 @@ export default class Recycle extends Component {
   render() {
     return (
       <SafeAreaView style={styles.safeArea}>
-        <StatusBar style='light' backgroundColor='black'/>
         <FlatList
           data={this.state.cards}
           renderItem={this.renderItem}

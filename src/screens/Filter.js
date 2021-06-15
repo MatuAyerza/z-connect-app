@@ -56,7 +56,9 @@ export default class Filter extends Component {
   render() {
     return (
       <SafeAreaView style={[styles.safeArea, styles.centerItems]}>
-        <Image source={require("@assets/img/logo.png")} style={[menuStyles.image, styles.forceTop]} resizeMethod='resize' resizeMode='center'/>
+        <View style={styles.filterHeader}>
+          <Text style={styles.headerText}>Filter Cards</Text>
+        </View>
         <View style={styles.filterWrapper}>
           <View style={styles.inputWrapper}>
             <Text>Enter First Name</Text>
