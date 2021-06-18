@@ -31,7 +31,7 @@ export default class App extends Component {
           <Stack.Screen name='Load Cards' component={LoadCards} />
           <Stack.Screen name='View Cards' component={ViewCards} initialParams={{list: '@userList'}}/>
           <Stack.Screen name='About' component={About} />
-          <Stack.Screen name='Recycle' component={Recycle} />
+          <Stack.Screen name='Recycle' component={Recycle} initialParams={{list:'@recycleList'}}/>
           <Stack.Screen name='Filter' component={Filter} />
         </Stack.Navigator>
       </NavigationContainer>
