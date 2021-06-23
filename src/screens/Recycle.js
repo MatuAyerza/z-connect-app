@@ -2,8 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import React, { Component } from 'react';
 import { AsyncStorage, SafeAreaView, FlatList, Button, ActivityIndicator} from 'react-native';
 import { styles } from "../styles/styles";
-import Card from '../components/Card'
-
+import Card from '../components/DeletedCard'
 export default class Recycle extends Component {
   constructor(props) {
     super(props);
@@ -37,6 +36,16 @@ export default class Recycle extends Component {
     });
   };
 
+  permanentDelete = (idToDelete) => {
+    let userList = this.state.userList.filter(
+      (user) => user.login.uuid !== idToDelete
+    );
+    this.setState({
+      userList: userList,
+    });
+  }
+  
+
   componentDidMount() {
     this.getCards(this.props.route.params.list);
   }
@@ -61,7 +70,7 @@ export default class Recycle extends Component {
   };
 
   renderItem = ({ item }) => (
-    <Card key={item.login.uuid} userInfo={item} id={item.login.uuid} deleteCard={this.restoreCard} />
+    <Card key={item.login.uuid} userInfo={item} id={item.login.uuid} deleteCard={this.restoreCard} permanentDelete={this.permanentDelete} />
   );
 
   render() {
