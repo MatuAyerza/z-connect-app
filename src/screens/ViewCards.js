@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { Component } from 'react';
-import { AsyncStorage, SafeAreaView, FlatList, Button, ActivityIndicator} from 'react-native';
+import { AsyncStorage, SafeAreaView, FlatList, Button, ActivityIndicator, Alert} from 'react-native';
 import { styles } from "../styles/styles";
 import Card from '../components/Card'
 
@@ -55,13 +55,20 @@ export default class ViewCards extends Component {
       console.error(error);
     }
   };
+  commentCard = (idToComment, comment) => {
+    let userList = this.state.userList.filter(
+      (user) => user.login.uuid == idToComment
+    );
+    userList[0].comment = comment
+    console.log(userList[0]);
+  }
 
   extractor = (item, idx) => {
     return idx.toString();
   };
 
   renderItem = ({ item }) => (
-    <Card key={item.login.uuid} userInfo={item} id={item.login.uuid} deleteCard={this.deleteCard} />
+    <Card key={item.login.uuid} userInfo={item} id={item.login.uuid} deleteCard={this.deleteCard} commentCard={this.commentCard} />
   );
 
   render() {

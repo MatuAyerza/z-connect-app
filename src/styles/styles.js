@@ -91,6 +91,17 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
     paddingHorizontal: 10,
   },
+  viewMoreModalContainer: {
+    flex: 1,
+    justifyContent: "flex-end",
+    alignItems: "center",
+  },
+  viewMoreModal:{
+    width: '100%',
+    height: '55%',
+    backgroundColor: "white",
+    alignItems: 'center',
+  }
 });
 
 const buttons = StyleSheet.create({
