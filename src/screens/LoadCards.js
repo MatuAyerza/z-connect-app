@@ -1,15 +1,12 @@
-import { StatusBar } from 'expo-status-bar';
 import React, { Component } from 'react';
 import { AsyncStorage, SafeAreaView, TextInput, TouchableOpacity, View, Text, ActivityIndicator, Alert} from 'react-native';
-import { styles, buttons, menuStyles } from "../styles/styles"; 
+import { styles, buttons } from "../styles/styles"; 
 import { loadUserData } from "../api/userData"
 
 export default class LoadCards extends Component {
   constructor() {
     super();
     this.state = {
-      originalUserList: [],
-      userList: [],
       number: 20,
       showModal: false,
       activity: false,
@@ -21,7 +18,7 @@ export default class LoadCards extends Component {
       this.setState({activity: true})
       let results = await loadUserData(number)
       let jsonString = JSON.stringify(results);
-      AsyncStorage.setItem("@userList", jsonString);
+      await AsyncStorage.setItem("@userList", jsonString);
       this.setState({ activity: false });
       return Alert.alert(
         "Cards Loaded",
@@ -46,7 +43,7 @@ export default class LoadCards extends Component {
         <View style={styles.filterHeader}>
           <Text style={styles.headerText}>Load Cards</Text>
         </View>
-        <View style={styles.filterWrapper}>
+        <View style={styles.importWrapper}>
           <View style={styles.inputWrapper}>
             <Text>Number of Cards</Text>
             <TextInput style={styles.inputField} placeholder= "Enter number of cards" keyboardType="number-pad" onChangeText={(number) => this.setState({ number: number })}></TextInput>

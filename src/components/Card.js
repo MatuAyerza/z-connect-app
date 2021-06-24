@@ -1,6 +1,5 @@
-import { StatusBar } from 'expo-status-bar';
 import React, {Component} from 'react';
-import { StyleSheet, Text, View, Button, TouchableOpacity, Image, Modal, TextInput, Animated} from 'react-native';
+import { Text, View, TouchableOpacity, Image, Modal, TextInput, Animated} from 'react-native';
 import { styles, buttons } from "../styles/styles";
 
 class Card extends Component{
@@ -104,7 +103,7 @@ class Card extends Component{
                   </TouchableOpacity>
                   <View style={styles.inputWrapper}>
                     <Text>Enter Comment</Text>
-                    <TextInput style={styles.inputField} onChangeText={(text) => {this.setState({comment: text})}} placeholder="Comment"></TextInput>
+                    <TextInput style={styles.inputField} onChangeText={(text) => {this.setState({comment: text})}} placeholder="Comment"/>
                   </View>
                   <TouchableOpacity style={styles.inputField} style={buttons.modalButton} onPress={this.commentHandler}>
                     <Text style={styles.whiteText} >Add Comment</Text>

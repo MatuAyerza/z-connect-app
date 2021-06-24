@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import { AsyncStorage, Text, SafeAreaView, TextInput, TouchableOpacity, View, Image} from 'react-native';
-import { buttons, styles, menuStyles } from "../styles/styles";
+import { AsyncStorage, Text, SafeAreaView, TextInput, TouchableOpacity, View } from 'react-native';
+import { buttons, styles } from "../styles/styles";
 
 export default class Filter extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      originalUserList: [],
       userList: [],
       nameHandler: "",
       lastNameHandler: "",
@@ -26,37 +25,38 @@ export default class Filter extends Component {
 
       return this.setState({
         userList: parsedUserList,
-        originalUserList: parsedUserList,
       });
     } catch (error) {
       console.error(error);
     }
   };
 
-  filterCards = () => {
-    let filterName = this.state.nameHandler;
-    let filterLast = this.state.lastNameHandler;
-    let filterAge = this.state.ageHandler;
-    let filteredCards = this.state.userList.filter((user) => {
-      if (filterAge !== "") {
-        return (
-          user.name.first.toLowerCase().includes(filterName.toLowerCase()) &&
-          user.name.last.toLowerCase().includes(filterLast.toLowerCase()) &&
-          user.dob.age == filterAge
-        );
-      } else {
-        return (
-          user.name.first.toLowerCase().includes(filterName.toLowerCase()) &&
-          user.name.last.toLowerCase().includes(filterLast.toLowerCase())
-        );
-      }
-    });
-    let stringFilteredCards = JSON.stringify(filteredCards);
-    AsyncStorage.setItem("@filterList", stringFilteredCards);
-    return this.props.navigation.navigate("View Cards", { list: "@filterList" });
+  filterCards = async () => {
+    try {
+      let filterName = this.state.nameHandler;
+      let filterLast = this.state.lastNameHandler;
+      let filterAge = this.state.ageHandler;
+      let filteredCards = this.state.userList.filter((user) => {
+        if (filterAge !== "") {
+          return (
+            user.name.first.toLowerCase().includes(filterName.toLowerCase()) &&
+            user.name.last.toLowerCase().includes(filterLast.toLowerCase()) &&
+            user.dob.age == filterAge
+          );
+        } else {
+          return (
+            user.name.first.toLowerCase().includes(filterName.toLowerCase()) &&
+            user.name.last.toLowerCase().includes(filterLast.toLowerCase())
+          );
+        }
+      });
+      let stringFilteredCards = JSON.stringify(filteredCards);
+      await AsyncStorage.setItem("@filterList", stringFilteredCards);
+      return this.props.navigation.navigate("View Cards", {list: "@filterList",});
+    } catch (error) {
+      console.error(error);
+    }
   };
-
-  //TODO Fix squish when opening keyboard
 
   render() {
     return (

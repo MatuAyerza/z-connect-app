@@ -1,6 +1,5 @@
-import { StatusBar } from 'expo-status-bar';
 import React, { Component } from 'react';
-import { AsyncStorage, SafeAreaView, FlatList, Button, ActivityIndicator, Alert} from 'react-native';
+import { AsyncStorage, SafeAreaView, FlatList, ActivityIndicator } from 'react-native';
 import { styles } from "../styles/styles";
 import Card from '../components/Card'
 
@@ -8,12 +7,8 @@ export default class ViewCards extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      originalUserList: [],
       userList: [],
       activity: false,
-      showModal: false,
-      modalItem: [],
-      modalItemExists: false,
     };
   }
 
@@ -26,12 +21,12 @@ export default class ViewCards extends Component {
       );
       parsedRecycleList.push(userListAsync[0])
       let recycleString = JSON.stringify(parsedRecycleList);
-      AsyncStorage.setItem("@recycleList", recycleString);
+      await AsyncStorage.setItem("@recycleList", recycleString);
       let userList = this.state.userList.filter(
         (user) => user.login.uuid !== idToDelete
       );
       let jsonString = JSON.stringify(userList);
-      AsyncStorage.setItem("@userList", jsonString);
+      await AsyncStorage.setItem("@userList", jsonString);
       this.setState({
         userList: userList,
       });
@@ -44,6 +39,7 @@ export default class ViewCards extends Component {
   componentDidMount() {
     this.getCards(this.props.route.params.list);
   }
+  
   getCards = async (list) => {
     try {
       this.setState({ activity: true });
@@ -52,13 +48,13 @@ export default class ViewCards extends Component {
       let parsedUserList = userList != null ? JSON.parse(userList) : null;
       return this.setState({
         userList: parsedUserList,
-        originalUserList: parsedUserList,
         activity: false,
       });
     } catch (error) {
       console.error(error);
     }
   };
+
   commentCard = (idToComment, comment) => {
     let userList = this.state.userList.filter(
       (user) => user.login.uuid == idToComment

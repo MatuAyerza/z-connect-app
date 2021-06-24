@@ -1,4 +1,3 @@
-import { StatusBar } from 'expo-status-bar';
 import React, { Component } from 'react';
 import { Text, View, SafeAreaView, TouchableOpacity, Image, Animated, Alert, AsyncStorage } from 'react-native';
 import { styles, menuStyles } from "../styles/styles";
