@@ -17,22 +17,27 @@ export default class LoadCards extends Component {
   }
 
   getCards = async (number) => {
-    this.setState({activity: true})
-    let results = await loadUserData(number)
-    let jsonString = JSON.stringify(results);
-    AsyncStorage.setItem("@userList", jsonString);
-    this.setState({ activity: false });
-    return Alert.alert(
-      "Cards Loaded",
-      this.state.number + " cards have been loaded",
-      [
-        {
-          text: "Cancel",
-          style: "cancel",
-        },
-        { text: "View Cards", onPress: () => this.props.navigation.navigate("View Cards", { list: "@userList" })},
-      ]
-    );
+    try {
+      this.setState({activity: true})
+      let results = await loadUserData(number)
+      let jsonString = JSON.stringify(results);
+      AsyncStorage.setItem("@userList", jsonString);
+      this.setState({ activity: false });
+      return Alert.alert(
+        "Cards Loaded",
+        this.state.number + " cards have been loaded",
+        [
+          {
+            text: "Cancel",
+            style: "cancel",
+          },
+          { text: "View Cards", onPress: () => this.props.navigation.navigate("View Cards", { list: "@userList" })},
+        ]
+      );
+    } 
+    catch (error) {
+      console.error(error);
+    }
   }
 
   render() {

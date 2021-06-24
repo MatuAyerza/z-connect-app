@@ -17,22 +17,27 @@ export default class Recycle extends Component {
   }
 
   restoreCard = async (idToRestore) => {
-    let restoreList = await AsyncStorage.getItem("@userList");
-    let parsedRestoreList = restoreList != null ? JSON.parse(restoreList) : [];
-    let userListAsync = this.state.userList.filter(
-      (user) => user.login.uuid == idToRestore
-    );
-    parsedRestoreList.push(userListAsync[0])
-    let restoreString = JSON.stringify(parsedRestoreList);
-    AsyncStorage.setItem("@userList", restoreString);
-    let userList = this.state.userList.filter(
-      (user) => user.login.uuid !== idToRestore
-    );
-    let jsonString = JSON.stringify(userList);
-    AsyncStorage.setItem("@recycleList", jsonString);
-    this.setState({
-      userList: userList,
-    });
+    try{
+      let restoreList = await AsyncStorage.getItem("@userList");
+      let parsedRestoreList = restoreList != null ? JSON.parse(restoreList) : [];
+      let userListAsync = this.state.userList.filter(
+        (user) => user.login.uuid == idToRestore
+      );
+      parsedRestoreList.push(userListAsync[0])
+      let restoreString = JSON.stringify(parsedRestoreList);
+      AsyncStorage.setItem("@userList", restoreString);
+      let userList = this.state.userList.filter(
+        (user) => user.login.uuid !== idToRestore
+      );
+      let jsonString = JSON.stringify(userList);
+      AsyncStorage.setItem("@recycleList", jsonString);
+      this.setState({
+        userList: userList,
+      });
+    }
+    catch (error) {
+      console.error(error);
+    }
   };
 
   permanentDelete = (idToDelete) => {
@@ -42,7 +47,8 @@ export default class Recycle extends Component {
     this.setState({
       userList: userList,
     });
-    // TODO Delete from Async
+    let deletedData = JSON.stringify(userList);
+    AsyncStorage.setItem("@recycleList", deletedData) 
   }
   
   componentDidMount() {

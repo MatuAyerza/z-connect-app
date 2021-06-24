@@ -18,22 +18,27 @@ export default class ViewCards extends Component {
   }
 
   deleteCard = async (idToDelete) => {
-    let recycleList = await AsyncStorage.getItem("@recycleList");
-    let parsedRecycleList = recycleList != null ? JSON.parse(recycleList) : [];
-    let userListAsync = this.state.userList.filter(
-      (user) => user.login.uuid == idToDelete
-    );
-    parsedRecycleList.push(userListAsync[0])
-    let recycleString = JSON.stringify(parsedRecycleList);
-    AsyncStorage.setItem("@recycleList", recycleString);
-    let userList = this.state.userList.filter(
-      (user) => user.login.uuid !== idToDelete
-    );
-    let jsonString = JSON.stringify(userList);
-    AsyncStorage.setItem("@userList", jsonString);
-    this.setState({
-      userList: userList,
-    });
+    try{
+      let recycleList = await AsyncStorage.getItem("@recycleList");
+      let parsedRecycleList = recycleList != null ? JSON.parse(recycleList) : [];
+      let userListAsync = this.state.userList.filter(
+        (user) => user.login.uuid == idToDelete
+      );
+      parsedRecycleList.push(userListAsync[0])
+      let recycleString = JSON.stringify(parsedRecycleList);
+      AsyncStorage.setItem("@recycleList", recycleString);
+      let userList = this.state.userList.filter(
+        (user) => user.login.uuid !== idToDelete
+      );
+      let jsonString = JSON.stringify(userList);
+      AsyncStorage.setItem("@userList", jsonString);
+      this.setState({
+        userList: userList,
+      });
+    }
+    catch (error) {
+      console.error(error);
+    }
   };
 
   componentDidMount() {
