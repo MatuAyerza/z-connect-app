@@ -17,7 +17,6 @@ export default class Recycle extends Component {
   }
 
   restoreCard = async (idToRestore) => {
-    // Cambiar a async y que mande a recycle bin list
     let restoreList = await AsyncStorage.getItem("@userList");
     let parsedRestoreList = restoreList != null ? JSON.parse(restoreList) : [];
     let userListAsync = this.state.userList.filter(
@@ -43,9 +42,9 @@ export default class Recycle extends Component {
     this.setState({
       userList: userList,
     });
+    // TODO Delete from Async
   }
   
-
   componentDidMount() {
     this.getCards(this.props.route.params.list);
   }
@@ -70,7 +69,7 @@ export default class Recycle extends Component {
   };
 
   renderItem = ({ item }) => (
-    <Card key={item.login.uuid} userInfo={item} id={item.login.uuid} deleteCard={this.restoreCard} permanentDelete={this.permanentDelete} />
+    <Card key={item.login.uuid} userInfo={item} id={item.login.uuid} restoreCard={this.restoreCard} permanentDelete={this.permanentDelete} />
   );
 
   render() {

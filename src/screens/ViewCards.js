@@ -18,7 +18,6 @@ export default class ViewCards extends Component {
   }
 
   deleteCard = async (idToDelete) => {
-    // Cambiar a async y que mande a recycle bin list
     let recycleList = await AsyncStorage.getItem("@recycleList");
     let parsedRecycleList = recycleList != null ? JSON.parse(recycleList) : [];
     let userListAsync = this.state.userList.filter(
@@ -60,7 +59,6 @@ export default class ViewCards extends Component {
       (user) => user.login.uuid == idToComment
     );
     userList[0].comment = comment
-    console.log(userList[0]);
   }
 
   extractor = (item, idx) => {

@@ -1,105 +1,98 @@
-import { StatusBar } from 'expo-status-bar';
 import React, {Component} from 'react';
-import { StyleSheet, Text, View, Button, TouchableOpacity, Image, Modal, TextInput} from 'react-native';
+import { Text, View, TouchableOpacity, Image, Animated, Easing } from 'react-native';
 import { styles, buttons } from "../styles/styles";
 
 class Card extends Component{
   constructor(props){
     super(props)
     this.state = {
-      showModal: false,
-      comment: '',
-      showCommentModal: false,
+      showData: true,
     };
   }
-  showModal = () => {
-    this.setState({
-      showModal: true
-    })
+
+  
+  recycleRotation = new Animated.Value(0)
+  deleteRotation = new Animated.Value(0)
+
+  restoreHandler = () => {
+    Animated.timing(this.recycleRotation, {
+      toValue: 1,
+      duration: 500,
+      useNativeDriver: true,
+      easing: Easing.ease,
+    }).start(this.delayRestoration);
   }
-  hideModal = () => {
-    this.setState({
-      showModal: false
-    })
+
+  delayRestoration = () => {
+    setTimeout(() => {
+      this.props.restoreCard(this.props.id);
+    }, 500);
   }
-  showCommentModal = () => {
-    this.setState({
-      showCommentModal: true
-    })
+
+  deleteHandler = () => {
+    Animated.timing(this.deleteRotation, {
+      toValue: 1,
+      duration: 500,
+      useNativeDriver: true,
+      easing: Easing.ease,
+    }).start(this.delayDeletion);
   }
-  hideCommentModal = () => {
-    this.setState({
-      showCommentModal: false
-    })
+
+  delayDeletion = () => {
+    setTimeout(() => {
+      this.props.permanentDelete(this.props.id);
+    }, 500);
   }
-  commentHandler = () => {
-    this.props.commentCard(this.props.id, this.state.comment);
-    this.hideCommentModal()
-  }
+
+  recycleSpin = this.recycleRotation.interpolate({
+    inputRange: [0, 1],
+    outputRange: ["0deg", "180deg"],
+  });
+
+  recycleCheckSpin = this.recycleRotation.interpolate({
+    inputRange: [0, 1],
+    outputRange: ["180deg", "360deg"],
+  });
+  
+  deleteSpin = this.deleteRotation.interpolate({
+    inputRange: [0, 1],
+    outputRange: ["0deg", "180deg"],
+  });
+
+  deleteCheckSpin = this.deleteRotation.interpolate({
+    inputRange: [0, 1],
+    outputRange: ["180deg", "360deg"],
+  });
   
   render(){ 
   return (
-      <View style={styles.card}>
-        <TouchableOpacity onPress={()=>{this.props.deleteCard(this.props.id)}} style={buttons.deleteButton}>
-          <Text style={styles.whiteText}>Restore</Text>
-        </TouchableOpacity>
-        <Image source={{uri: this.props.userInfo.picture.large}} style={styles.profileImage}/>
-        <Text>{this.props.userInfo.name.first} {this.props.userInfo.name.last}</Text>
-        <Text>Email: {this.props.userInfo.email}</Text>
-        <Text>Birthday: {this.props.userInfo.dob.date.substring(0,10)} (Age: {this.props.userInfo.dob.age})</Text>
-        <View style={styles.cardButtonWrapper}>
-          <TouchableOpacity style={buttons.cardButton} onPress={this.showModal}>
-            <Text style={styles.whiteText}>View More</Text>
+    <React.Fragment>
+      <Animated.View style={[styles.card, styles.restoredCard, {transform: [{rotateX: this.recycleCheckSpin}], backfaceVisibility: 'false'}]}>
+        <Text style={styles.headerText}>Card Restored!</Text>
+      </Animated.View>
+      <Animated.View style={[styles.card, styles.deletedCard, {transform: [{rotateY: this.deleteCheckSpin}], backfaceVisibility: 'false'}]}>
+        <Text style={styles.headerText}>Card Deleted!</Text>
+      </Animated.View>
+      <Animated.View style={[styles.card, {transform: [{rotateX: this.recycleSpin}, {rotateY: this.deleteSpin}], backfaceVisibility: 'false'}]}>
+        {this.state.showData &&
+        <React.Fragment>
+          <TouchableOpacity onPress={()=>{this.restoreHandler(this.props.id);}} style={buttons.restoreButton}>
+            <Text style={styles.whiteText}>Restore</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={buttons.cardButton} onPress={()=>{this.props.permanentDelete(this.props.id)}}>
-            <Text style={styles.whiteText}>Permament Delete</Text>
-          </TouchableOpacity>
-        </View>
-        {/* <div className='view-more-wrapper' id='view-more-wrapper' style={{height: this.state.currentDisplay}}>
-          <p>Phone: {this.props.userInfo.phone}</p>
-          <p>Address: {this.props.userInfo.location.street.name} {this.props.userInfo.location.street.number}</p>
-          <p>City: {this.props.userInfo.location.city}, {this.props.userInfo.location.state} ({this.props.userInfo.location.postcode})</p>
-          <p>Country: {this.props.userInfo.location.country}</p>
-          <p>Register Date: {this.props.userInfo.registered.date.substring(0,10)}</p>
-        </div>
-        <button className='blue-button' id={'view-more-button-' + this.props.id} onClick={()=>{this.viewMore()}}>View {this.state.buttonText}</button> */}
-        <Modal visible={this.state.showModal} transparent={true} animationType='slide' onRequestClose={this.hideModal}>
-            <View style={styles.viewMoreModalContainer}>
-              <View style={styles.viewMoreModal}>
-                <TouchableOpacity style={buttons.deleteButton} onPress={this.hideModal}>
-                  <Text style={styles.whiteText}>X</Text>
-                </TouchableOpacity>
-                <Image source={{uri: this.props.userInfo.picture.large}} style={styles.profileImage}/>
-                <Text>{this.props.userInfo.name.first} {this.props.userInfo.name.last}</Text>
-                <Text>Email: {this.props.userInfo.email}</Text>
-                <Text>Birthday: {this.props.userInfo.dob.date.substring(0,10)} (Age: {this.props.userInfo.dob.age})</Text>
-                <Text>Phone: {this.props.userInfo.phone}</Text>
-                <Text>Address: {this.props.userInfo.location.street.name} {this.props.userInfo.location.street.number}</Text>
-                <Text>City: {this.props.userInfo.location.city}, {this.props.userInfo.location.state} ({this.props.userInfo.location.postcode})</Text>
-                <Text>Country: {this.props.userInfo.location.country}</Text>
-                <Text>Register Date: {this.props.userInfo.registered.date.substring(0,10)}</Text>
-                <Text>Comment: {this.props.userInfo.comment}</Text>
-                <TouchableOpacity style={buttons.cardButton} onPress={this.showCommentModal}>
-                <Text style={styles.whiteText}>Add Comment</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-          </Modal>
-          <Modal visible={this.state.showCommentModal} transparent={true} onRequestClose={this.hideCommentModal}>
-            <View style={styles.modalContainer}>
-              <View style={styles.modal}>
-                <TouchableOpacity style={buttons.deleteButton} onPress={this.hideCommentModal}>
-                  <Text style={styles.whiteText}>X</Text>
-                </TouchableOpacity>
-                <TextInput onChangeText={(text) => {this.setState({comment: text})}} placeholder="Comment"></TextInput>
-                <TouchableOpacity style={buttons.modalButton} onPress={this.commentHandler}>
-                  <Text style={styles.whiteText} >Add Comment</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-          </Modal>
-      </View>
-    );
+          <Image source={{uri: this.props.userInfo.picture.large}} style={styles.profileImage}/>
+          <Text>{this.props.userInfo.name.first} {this.props.userInfo.name.last}</Text>
+          <Text>Email: {this.props.userInfo.email}</Text>
+          <Text>Birthday: {this.props.userInfo.dob.date.substring(0,10)} (Age: {this.props.userInfo.dob.age})</Text>
+          <View style={styles.cardButtonWrapper}>
+            <TouchableOpacity style={buttons.redCardButton} onPress={()=>{this.deleteHandler(this.props.id)}}>
+              <Text style={styles.whiteText}>Permamently Delete</Text>
+            </TouchableOpacity>
+          </View>
+        </React.Fragment>}
+      </Animated.View>
+
+    </React.Fragment>
+  );
 }
 }
 export default Card

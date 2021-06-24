@@ -13,9 +13,11 @@ export default class Filter extends Component {
       ageHandler: "",
     };
   }
+
   componentDidMount() {
     this.getCards();
   }
+
   getCards = async () => {
     try {
       this.setState({ activity: !this.state.activity });
@@ -30,6 +32,7 @@ export default class Filter extends Component {
       console.error(error);
     }
   };
+
   filterCards = () => {
     let filterName = this.state.nameHandler;
     let filterLast = this.state.lastNameHandler;
@@ -52,6 +55,8 @@ export default class Filter extends Component {
     AsyncStorage.setItem("@filterList", stringFilteredCards);
     return this.props.navigation.navigate("View Cards", { list: "@filterList" });
   };
+
+  //TODO Fix squish when opening keyboard
 
   render() {
     return (

@@ -4,8 +4,11 @@ const styles = StyleSheet.create({
   whiteText: {
     color: "white",
   },
+  centerText: {
+    textAlign: "center",
+  },
   headerText: {
-    fontSize: 20
+    fontSize: 20,
   },
   safeArea: {
     flex: 1,
@@ -22,13 +25,26 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     marginVertical: 10,
     width: 300,
+    height: 250,
     alignItems: "center",
     paddingHorizontal: 10,
     paddingVertical: 10,
   },
+  restoredCard: {
+    position: "absolute",
+    backgroundColor: "#32d15d",
+    justifyContent: "center",
+  },
+  deletedCard: {
+    position: "absolute",
+    backgroundColor: "#d13232",
+    justifyContent: "center",
+  },
   aboutItems: {
     justifyContent: "space-evenly",
     alignItems: "center",
+    width: "75%",
+    flex: 1,
   },
   filterHeader: {
     backgroundColor: "white",
@@ -78,10 +94,10 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.25)",
   },
   modal: {
-    width: 200,
-    height: 100,
+    width: 270,
     backgroundColor: "white",
     alignItems: "center",
     borderStyle: "solid",
@@ -96,23 +112,34 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end",
     alignItems: "center",
   },
-  viewMoreModal:{
-    width: '100%',
-    height: '55%',
+  viewMoreModal: {
+    width: "100%",
+    height: "55%",
     backgroundColor: "white",
-    alignItems: 'center',
-  }
+    alignItems: "center",
+    paddingHorizontal: 10,
+    paddingVertical: 10,
+  },
 });
 
 const buttons = StyleSheet.create({
   deleteButton: {
     backgroundColor: "red",
-    width: 20,
-    color: "white",
+    width: 30,
     alignItems: "center",
     alignSelf: "flex-end",
     borderRadius: 2,
-    marginBottom: 5
+    paddingVertical: 5,
+    marginBottom: 5,
+  },
+  restoreButton: {
+    backgroundColor: "green",
+    alignItems: "center",
+    alignSelf: "flex-end",
+    borderRadius: 2,
+    paddingVertical: 5,
+    paddingHorizontal: 5,
+    marginBottom: 5,
   },
   filterButton: {
     width: "75%",
@@ -130,12 +157,21 @@ const buttons = StyleSheet.create({
     paddingVertical: 5,
     marginVertical: 5,
   },
+  redCardButton: {
+    width: "75%",
+    backgroundColor: "red",
+    borderRadius: 2,
+    alignItems: "center",
+    paddingVertical: 5,
+    marginVertical: 5,
+  },
   modalButton: {
     width: "75%",
     backgroundColor: "#2196F3",
     borderRadius: 2,
     alignItems: "center",
     paddingVertical: 5,
+    paddingHorizontal: 5,
     marginVertical: 5,
   },
 });
@@ -152,6 +188,13 @@ const menuStyles = StyleSheet.create({
     height: 100,
     width: "40%",
     backgroundColor: "white",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  menuButtonInactive: {
+    height: 100,
+    width: "40%",
+    backgroundColor: "grey",
     justifyContent: "center",
     alignItems: "center",
   },

@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { Component } from 'react';
-import { AsyncStorage, SafeAreaView, TextInput, TouchableOpacity, View, Text, Image, Modal} from 'react-native';
+import { AsyncStorage, SafeAreaView, TextInput, TouchableOpacity, View, Text, ActivityIndicator, Alert} from 'react-native';
 import { styles, buttons, menuStyles } from "../styles/styles"; 
 import { loadUserData } from "../api/userData"
 
@@ -11,24 +11,28 @@ export default class LoadCards extends Component {
       originalUserList: [],
       userList: [],
       number: 20,
-      showModal: false
+      showModal: false,
+      activity: false,
     };
   }
 
-  getCards = async(number) => {
+  getCards = async (number) => {
+    this.setState({activity: true})
     let results = await loadUserData(number)
     let jsonString = JSON.stringify(results);
     AsyncStorage.setItem("@userList", jsonString);
-    return this.setState({ showModal: true });
-  }
-
-  hideModal = () => {
-    this.setState({ showModal: false });
-  }
-
-  navigateToView = () => {
-    this.hideModal()
-    return this.props.navigation.navigate("View Cards", { list: "@userList" });
+    this.setState({ activity: false });
+    return Alert.alert(
+      "Cards Loaded",
+      this.state.number + " cards have been loaded",
+      [
+        {
+          text: "Cancel",
+          style: "cancel",
+        },
+        { text: "View Cards", onPress: () => this.props.navigation.navigate("View Cards", { list: "@userList" })},
+      ]
+    );
   }
 
   render() {
@@ -42,23 +46,17 @@ export default class LoadCards extends Component {
             <Text>Number of Cards</Text>
             <TextInput style={styles.inputField} placeholder= "Enter number of cards" keyboardType="number-pad" onChangeText={(number) => this.setState({ number: number })}></TextInput>
           </View>
+          {this.state.activity
+          ? <ActivityIndicator 
+            size={80}
+            color='#2196F3'
+          />
+          : 
           <TouchableOpacity style={buttons.filterButton} onPress={()=>{this.getCards(this.state.number)}}>
             <Text style={styles.whiteText}>Load Cards</Text>
           </TouchableOpacity>
+          }
         </View>
-        <Modal visible={this.state.showModal} transparent={true} onRequestClose={this.hideModal}>
-          <View style={styles.modalContainer}>
-            <View style={styles.modal}>
-              <TouchableOpacity style={buttons.deleteButton} onPress={this.hideModal}>
-                <Text style={styles.whiteText}>X</Text>
-              </TouchableOpacity>
-              <Text>{this.state.number} cards have been loaded</Text>
-              <TouchableOpacity style={buttons.modalButton} onPress={this.navigateToView}>
-                <Text style={styles.whiteText}>View More</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        </Modal>
       </SafeAreaView>
     );
   }
