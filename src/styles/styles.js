@@ -183,6 +183,13 @@ const buttons = StyleSheet.create({
     paddingHorizontal: 5,
     marginVertical: 5,
   },
+  restoreAllButton: {
+    position: "absolute",
+    bottom: 0,
+    width: "100%",
+    backgroundColor: "green",
+    height: 50
+  },
 });
 
 const menuStyles = StyleSheet.create({

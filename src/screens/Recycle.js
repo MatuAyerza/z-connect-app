@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { AsyncStorage, SafeAreaView, FlatList, ActivityIndicator} from 'react-native';
-import { styles } from "../styles/styles";
+import { AsyncStorage, SafeAreaView, FlatList, ActivityIndicator, TouchableOpacity, Text, Alert } from 'react-native';
+import { buttons, styles } from "../styles/styles";
 import Card from '../components/DeletedCard'
 export default class Recycle extends Component {
   constructor(props) {
@@ -9,8 +9,6 @@ export default class Recycle extends Component {
       userList: [],
       activity: false,
       showModal: false,
-      modalItem: [],
-      modalItemExists: false,
     };
   }
 
@@ -38,6 +36,29 @@ export default class Recycle extends Component {
     }
   };
 
+  restoreAll = async () => {
+    try {
+      let restoreList = await AsyncStorage.getItem("@userList");
+      let parsedRestoreList = restoreList != null ? JSON.parse(restoreList) : [];
+      if (this.state.userList.length !== 0) {
+        this.state.userList.forEach((user) => {
+          parsedRestoreList.push(user);
+        });
+        let restoreString = JSON.stringify(parsedRestoreList);
+        await AsyncStorage.setItem("@userList", restoreString);
+        this.setState({
+          userList: [],
+        });
+        await AsyncStorage.removeItem("@recycleList");
+        return Alert.alert("Cards Restored", "All cards have been restored");
+      } else {
+        return Alert.alert("No Cards To Restore", "There are no cards left to restore");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   permanentDelete = async (idToDelete) => {
     try {
       let userList = this.state.userList.filter(
@@ -56,12 +77,13 @@ export default class Recycle extends Component {
   componentDidMount() {
     this.getCards(this.props.route.params.list);
   }
+
   getCards = async (list) => {
     try {
       this.setState({ activity: true });
       let userList = await AsyncStorage.getItem(list);
       this.setState({activity: !this.state.activity})
-      let parsedUserList = userList != null ? JSON.parse(userList) : null;
+      let parsedUserList = userList != null ? JSON.parse(userList) : [];
       return this.setState({
         userList: parsedUserList,
         activity: false,
@@ -88,12 +110,17 @@ export default class Recycle extends Component {
             color='#2196F3'
           />
         : 
-        <FlatList
-          data={this.state.userList}
-          renderItem={this.renderItem}
-          keyExtractor={this.extractor}
-          contentContainerStyle={styles.cardContainer}
-        ></FlatList>
+        <React.Fragment>
+          <FlatList
+            data={this.state.userList}
+            renderItem={this.renderItem}
+            keyExtractor={this.extractor}
+            contentContainerStyle={styles.cardContainer}
+            ></FlatList>
+          <TouchableOpacity style={[buttons.restoreAllButton, styles.centerItems]} onPress={this.restoreAll}>
+            <Text style={[styles.whiteText, styles.centerText]}>Restore All</Text>
+          </TouchableOpacity>
+        </React.Fragment>
         }
       </SafeAreaView>
     );
